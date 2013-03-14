@@ -68,14 +68,21 @@ class Keanu(GameElement):
     IMAGE = "keanu"
 
     def interact(self, player):
-        GAME_BOARD.draw_msg("Woops! This is NOT the One-True-God. Keep searching.")
+        GAME_BOARD.draw_msg("Aw, poor Sad Keanu... He is NOT the One-True-God. Keep searching.")
         SOLID = False
 
 class Grumpy(GameElement):
     IMAGE = "Cat"
 
     def interact(self, player):
-        GAME_BOARD.draw_msg("Woops! This is NOT the One-True-God. Keep searching.")
+        GAME_BOARD.draw_msg("NOPE. Grumpy Cat is NOT the One-True-God. Keep searching.")
+        SOLID = False
+
+class Nar_whal(GameElement):
+    IMAGE = "Narwhal"
+    
+    def interact(self, player):
+        GAME_BOARD.draw_msg("Not midnight yet... Mr. Narwhal is NOT the One-True-God. Keep searching.")
         SOLID = False
 
 class Character(GameElement):
@@ -108,7 +115,7 @@ class Door_closed(GameElement):
             class Door_opened(Door_closed):
                 self.sprite = pyglet.sprite.Sprite(pyglet.resource.image("Door Tall Open.png"))
                 self.SOLID = True
-                GAME_BOARD.draw_msg("Congratulations! You have unlocked the door! THE END")
+                GAME_BOARD.draw_msg("Congratulations! You found the bacon! THE END")
 
 ####   End class definitions    ####
 
@@ -191,7 +198,8 @@ def initialize():
         (1,8),
         (3,0),
         (7,4),
-        (3,5)
+        (3,5),
+        (0,7)
     ]
 
     nic_cg = []
@@ -204,7 +212,8 @@ def initialize():
     keanu_positions = [
         (0,4),
         (7,0),
-        (7,7)
+        (7,7),
+        (4,3)
     ]
 
     keanus = []
@@ -214,10 +223,25 @@ def initialize():
         GAME_BOARD.set_el(pos[0], pos[1], kcr)
         keanus.append(kcr)
 
+    nw_positions = [
+        (6,0),
+        (1,1),
+        (5,2),
+        (3,7)
+    ]
+
+    narwhals = []
+    for pos in nw_positions:
+        mrnarwhal = Nar_whal()
+        GAME_BOARD.register(mrnarwhal)
+        GAME_BOARD.set_el(pos[0], pos[1], mrnarwhal)
+        narwhals.append(mrnarwhal)
+
     cat_positions = [
         (0,3),
         (4,3),
-        (7,8)
+        (7,8),
+        (8,3)
     ]
 
     grumpy = []
@@ -227,7 +251,7 @@ def initialize():
         GAME_BOARD.set_el(pos[0], pos[1], grumpy_cat)
         grumpy.append(grumpy_cat)
 
-    GAME_BOARD.draw_msg("The object of this game is to find the One-True-God. Collect 3 of 'Him' to unlock the door.")
+    GAME_BOARD.draw_msg("The object of this game is to find the One-True-God. Collect 3 of 'Him' to unlock the door and retrieve the bacon.")
 def keyboard_handler():
     direction = None
 
